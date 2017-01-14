@@ -3,8 +3,8 @@ import time
 
 # Variables
 
-delay = 0.0055
-steps = 500
+#delay = 0.0055
+#steps = 500
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -35,19 +35,26 @@ GPIO.setup(coil_B_2_pin, GPIO.OUT)
 #GPIO.output(enable_a, True)
 GPIO.output(enable_b, True)
 
-# Function for step sequence
+speedpwm=GPIO.PWM(enable_b,100)
+speedpwm.start(50)
 
+# Function for step sequence
 #def setStep(w1, w2):
 #  GPIO.output(coil_A_1_pin, w1)
 #  GPIO.output(coil_A_2_pin, w2)
 
+#print "GO Backward 100Hz and 40 DC"
 #Reverse
 #setStep(1,0)
-#time.sleep(3)
+#time.sleep(5)
+
+#print "GO Forward 100Hz and 80 DC"
+#speedpwm.start(80)
 #Forward
 #setStep(0,1)
-#time.sleep(3)
+#time.sleep(5)
 
+#print "STOP"
 
 def setStep(w1, w2):
   GPIO.output(coil_B_1_pin, w1)
@@ -55,10 +62,10 @@ def setStep(w1, w2):
 
 #Right
 setStep(1,0)
-time.sleep(3)
+time.sleep(1)
 #Left
 setStep(0,1)
-time.sleep(3)
+time.sleep(1)
 
   
 #def setStep(w1, w2, w3, w4):
@@ -99,4 +106,5 @@ time.sleep(3)
 
 #GPIO.output(enable_a, False)
 GPIO.output(enable_b, False)
+speedpwm.stop()
 GPIO.cleanup()
